@@ -1,4 +1,4 @@
-import {z} from'zod';
+import z from 'zod';
 
 export const signupSchema=z.object({
     email:z.string().email(),
@@ -22,3 +22,13 @@ export const updatePostSchema=z.object({
     content:z.string().optional(),
     published:z.string().optional()
 })
+
+export type signinType= z.infer<typeof signinSchema>
+
+export type signupType= z.infer<typeof signupSchema>
+
+export type createPostType= z.infer<typeof createPostSchema>
+
+export type updatePostType= z.infer<typeof  updatePostSchema>
+
+

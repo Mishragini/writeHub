@@ -83,3 +83,16 @@ export async function handleSignin(c:Context){
 
 }
 
+export async function handleMe(c:Context){
+const prisma=c.get('prisma');
+const userId=c.get('userId');
+const me=await prisma.user.findFirst({where:{id:userId},include:{posts:{select:{title:true}}}})
+return c.json(me);
+}
+
+export async function getAuthorDetails(c:Context){
+  const prisma=c.get('prisma');
+  const authorId=c.req.param('authorId');
+  const author=await prisma.user.findFirst({where:{id:authorId},include:{posts:{select:{title:true}}}})
+  return c.json(author);
+}

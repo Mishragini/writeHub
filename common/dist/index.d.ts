@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import z from 'zod';
 export declare const signupSchema: z.ZodObject<{
     email: z.ZodString;
     name: z.ZodString;
@@ -48,3 +48,7 @@ export declare const updatePostSchema: z.ZodObject<{
     content?: string | undefined;
     published?: string | undefined;
 }>;
+export type signinType = z.infer<typeof signinSchema>;
+export type signupType = z.infer<typeof signupSchema>;
+export type createPostType = z.infer<typeof createPostSchema>;
+export type updatePostType = z.infer<typeof updatePostSchema>;

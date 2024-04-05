@@ -15,7 +15,7 @@ export async function handlePostBlog(c:Context){
 
     }
 
-    const post =await prisma.post.create({data:{title:body.title,content:body.content,authorId:userId}});
+    const post =await prisma.post.create({data:{title:body.title,content:body.content,authorId:userId,createdOn:new Date()}});
 
     return c.json({
 		id: post.id
@@ -58,7 +58,20 @@ export async function getBlogById(c:Context){
 
     const blogId=c.req.param('id');
 
-    const blog=await prisma.post.findFirst({where:{id:blogId}});
+    const blog=await prisma.post.findFirst({where:{id:blogId},include:{author:{select:{name:true,about:true}}}});
 
     return c.json(blog);
+}
+
+export async function getAllBlogs(c:Context){
+    const prisma=c.get('prisma');
+
+    const userId=c.get('userId')
+    try {
+        const blogs = await prisma.post.findMany();
+        return c.json(blogs);
+      } catch (error) {
+        console.error('Error retrieving blogs:', error);
+        return c.json({ error: 'Internal Server Error' }, 500);
+      }
 }
