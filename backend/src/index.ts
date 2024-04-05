@@ -34,6 +34,7 @@ app.use('/api/v1/blog/*', authMiddleWare)
 
 app.use('/api/v1/me',authMiddleWare);
 
+
 app.use('api/v1/author/*',authMiddleWare);
 
 app.route("/api/v1", router);

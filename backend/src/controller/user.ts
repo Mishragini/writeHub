@@ -86,13 +86,24 @@ export async function handleSignin(c:Context){
 export async function handleMe(c:Context){
 const prisma=c.get('prisma');
 const userId=c.get('userId');
-const me=await prisma.user.findFirst({where:{id:userId},include:{posts:{select:{title:true}}}})
+const me=await prisma.user.findFirst({where:{id:userId},include:{posts:{select:{title:true,content:true,createdOn:true,id:true}}}})
 return c.json(me);
 }
 
 export async function getAuthorDetails(c:Context){
   const prisma=c.get('prisma');
   const authorId=c.req.param('authorId');
-  const author=await prisma.user.findFirst({where:{id:authorId},include:{posts:{select:{title:true}}}})
+  const author=await prisma.user.findFirst({where:{id:authorId},include:{posts:{select:{title:true,content:true,createdOn:true,id:true}}}})
   return c.json(author);
+}
+
+export async function updateUser(c:Context) {
+  const prisma=c.get('prisma');
+  const userId=c.get('userId');
+  const body:{
+    name?:string,
+    about?:string,
+   }=await c.req.json();
+  const updatedUser=await prisma.user.update({where:{id:userId},data:body})
+  return c.json(updatedUser);
 }
