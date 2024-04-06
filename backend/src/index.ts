@@ -32,6 +32,8 @@ app.use('/api/v1/*',async (c:Context,next:Next)=>{
 
 app.use('/api/v1/blog/*', authMiddleWare)
 
+app.use('/api/v1/blogs',authMiddleWare)
+
 app.use('/api/v1/me',authMiddleWare);
 
 
