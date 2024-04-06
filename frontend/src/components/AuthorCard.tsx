@@ -12,7 +12,7 @@ export function AuthorCard({ name, about }: { name: string; about: string }) {
              <div className="text-3xl font-bold my-2">{name}</div>
   
               {about ? (
-                <div>{about}</div>
+                <div className="whitespace-nowrap">{about}</div>
               ) : (
                 <div  className="flex  text-gray-500 whitespace-nowrap">No Description available.</div>
               )}

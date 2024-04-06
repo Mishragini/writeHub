@@ -68,7 +68,7 @@ export function AuthCard({ type }: { type: "signup" | "signin" }) {
                             password: e.target.value
                         });
                     }} />
-                    <span className="absolute right-0 top-0 bottom-0 flex items-center pr-2" onClick={handleToggle}>
+                    <span className="absolute right-0 top-0 bottom-0 flex items-center pr-2 hover:cursor-pointer" onClick={handleToggle}>
                         <Icon icon={showPassword ? eye : eyeOff} size={20} />
                     </span>
                 </div>

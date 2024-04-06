@@ -1,7 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { AuthorCard } from "./AuthorCard";
+import { useUser } from "../hooks";
+import { useEffect, useState } from "react";
 
 export function FullBlog({ blog }: any) {
+  const {user}=useUser();
+  const[isOwner,setIsOwner]=useState(false);
+  useEffect(()=>{
+    user.posts.map((post)=>{
+      if(post.id===blog.id){
+        setIsOwner(true);
+      }
+    })
+  },[user])
   const createdOnDate = new Date(blog.createdOn);
   const formattedCreatedOn = createdOnDate.toDateString();
   const navigate=useNavigate();
@@ -17,6 +28,7 @@ export function FullBlog({ blog }: any) {
         </div>
         <div className="mt-4  text-gray-400">Posted on . {formattedCreatedOn}</div>
         <div className="mt-4  text-gray-700">{blog.content}</div>
+        {(isOwner)&& <button className="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg mt-2"onClick={()=>{navigate(`/edit/${blog.id}`)}}>Edit</button>}
       </div>
       <div className="col span-3 hidden lg:block">
         <AuthorCard name={blog.author.name} about={blog.author.about} />
