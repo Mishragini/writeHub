@@ -2,7 +2,7 @@ import { Icon } from 'react-icons-kit';
 import { eyeOff } from 'react-icons-kit/feather/eyeOff';
 import { eye } from 'react-icons-kit/feather/eye';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { BACKEND_URL } from '../config';
 import { signupType, signinType } from '@mishri/common';
@@ -38,7 +38,11 @@ export function AuthCard({ type }: { type: "signup" | "signin" }) {
     return (
         <div className="flex flex-col h-screen items-center justify-center">
             <p className="text-2xl font-bold">{(type === "signup") ? "Create an account" : "Enter your credentials"}</p>
-            <p className="text-sm text-gray-400 mb-8 pt-2">{(type === "signup") ? "Already have an account?" : "Don't have an account?"} <a href={(type === "signup") ? "/signin" : "/signup"} className="underline underline-offset-4">{type === "signin" ? "Sign up" : "Login"}</a></p>
+            <p className="text-sm text-gray-400 mb-8 pt-2">{(type === "signup") ? "Already have an account?" : "Don't have an account?"} 
+            <Link className="pl-2 underline" to={type === "signin" ? "/signup" : "/signin"}>
+                            {type === "signin" ? "Sign up" : "Sign in"}
+                        </Link>
+            </p>
             <div className="flex flex-col items-start">
                 {type === "signup" && (
                     <>
