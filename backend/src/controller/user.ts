@@ -27,12 +27,12 @@ export async function handleSignup(c:Context){
     const {success}=signupSchema.safeParse(body);
 
     if(!success){
-        return c.json({message:"Invalid inputs"})
+        return c.json({message:"Invalid inputs"},403)
     }
 
     const user= await prisma.user.findFirst({where:{email:body.email}})
 
-    if(user) return c.json({message:"User already exists"})
+    if(user) return c.json({message:"User already exists"},411)
 
     const password=await hashFunction(body.password);
 
@@ -62,16 +62,16 @@ export async function handleSignin(c:Context){
     const {success}=signinSchema.safeParse(body);
 
     if(!success){
-        return c.json({message:"Invalid inputs"})
+        return c.json({message:"Invalid inputs"},411)
     }
 
     const user= await prisma.user.findFirst({where:{email:body.email}})
 
-    if(!user) return c.json({message:"User does not exist"})
+    if(!user) return c.json({message:"User does not exist"},403)
 
     const hashedPass = await hashFunction(body.password);
     if(hashedPass!==user.password){
-        return c.json({message:"Wrong Password"})
+        return c.json({message:"Wrong Password"},403)
     }
 
     const token =await sign({id:user.id},c.env.JWT_SECRET);
