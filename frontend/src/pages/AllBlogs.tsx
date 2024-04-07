@@ -38,7 +38,6 @@ export function AllBlogs() {
           const createdOnDate = new Date(blog.createdOn);
           const formattedCreatedOn = createdOnDate.toDateString();
           return (
-            <div className="border-b">
             <BlogCard
               key={blog.id} 
               title={blog.title}
@@ -46,7 +45,6 @@ export function AllBlogs() {
               createdOn={formattedCreatedOn}
               id={blog.id}
             />
-            </div>
             
           );
         })

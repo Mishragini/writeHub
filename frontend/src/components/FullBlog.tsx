@@ -19,8 +19,8 @@ export function FullBlog({ blog }: any) {
   const createdOnDate = new Date(blog.createdOn);
   const formattedCreatedOn = createdOnDate.toDateString();
   const paragraphs = blog.content.split(/\n/);
-  const contentWithLineBreaks = paragraphs.map((paragraph:string) => (
-    <Fragment >
+  const contentWithLineBreaks = paragraphs.map((paragraph:string,index:number) => (
+    <Fragment key={index}>
     {paragraph}
     <br />
   </Fragment>
